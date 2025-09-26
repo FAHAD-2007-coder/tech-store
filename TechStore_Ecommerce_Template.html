@@ -95,7 +95,688 @@
 <body>
 <div class="container">
 <h1>TechStore Template</h1>
-<p>Paste your full e-commerce HTML content here.</p>
+<p><!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>TechStore — Professional Tech E-Commerce</title>
+<meta name="description" content="TechStore — gadgets, peripherals and accessories. Free GitHub Pages-ready template." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0f1724; --card:#0b1220; --muted:#94a3b8; --accent:#06b6d4; --accent-2:#7c3aed;
+    --glass: rgba(255,255,255,0.03);
+    --max-width:1200px;
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:linear-gradient(180deg,#021026 0%, #071025 60%); color:#e6eef8;
+    -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    line-height:1.45;
+  }
+  .container{max-width:var(--max-width); margin:32px auto; padding:0 18px;}
+  header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .logo{
+    width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));
+    display:flex;align-items:center;justify-content:center;font-weight:800;
+    box-shadow:0 6px 24px rgba(12,20,30,0.6);font-size:18px;
+  }
+  .site-title{font-weight:700;font-size:18px}
+  nav{display:flex;gap:12px;align-items:center}
+  .btn{
+    background:var(--glass); border:1px solid rgba(255,255,255,0.04); padding:10px 14px;border-radius:10px;
+    color:inherit;text-decoration:none;font-weight:600;cursor:pointer;
+  }
+  .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:#041022; box-shadow:0 8px 28px rgba(4,22,30,0.5)}
+  .hero{
+    display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;margin-bottom:26px;
+  }
+  .hero-left h1{font-size:32px;margin:0 0 12px 0}
+  .hero-left p{color:var(--muted); margin:0 0 16px 0}
+  .search{
+    display:flex;gap:8px;background:var(--card); padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);
+  }
+  .search input{flex:1;background:transparent;border:0;color:inherit;outline:none;padding:8px}
+  .filters{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+  .grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:16px;
+  }
+  .card{
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius:12px;padding:14px;border:1px solid rgba(255,255,255,0.03);
+    display:flex;flex-direction:column;gap:10px;height:100%;
+  }
+  .thumb{height:160px;border-radius:10px;background:#071124;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .thumb img{max-width:100%;max-height:100%;object-fit:contain}
+  .prod-title{font-weight:700;font-size:15px;margin:0}
+  .prod-desc{color:var(--muted);font-size:13px;margin:0}
+  .price-row{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+  .price{font-weight:800;font-size:18px}
+  .small{font-size:13px;color:var(--muted)}
+  footer{margin:36px 0 80px;color:var(--muted);text-align:center}
+  /* Responsive */
+  @media (max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)} .hero{grid-template-columns:1fr 320px}}
+  @media (max-width:820px){.grid{grid-template-columns:repeat(2,1fr)} .hero{grid-template-columns:1fr} header{flex-direction:column;align-items:flex-start}}
+  @media (max-width:520px){.grid{grid-template-columns:1fr} .thumb{height:200px}}
+  /* Cart drawer & modal */
+  .cart-btn{position:relative}
+  .cart-count{position:absolute;right:-8px;top:-8px;background:var(--accent);color:#021026;border-radius:999px;padding:4px 7px;font-weight:700;font-size:12px}
+  .drawer{position:fixed;right:18px;top:80px;width:360px;max-width:calc(100% - 36px);background:linear-gradient(180deg, rgba(3,7,17,0.95), rgba(4,6,12,0.95));border-radius:12px;padding:16px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 20px 60px rgba(2,6,12,0.7);display:none;z-index:60}
+  .drawer.open{display:block}
+  .drawer h3{margin:0 0 8px 0}
+  .cart-item{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,0.02)}
+  .cart-item img{width:64px;height:54px;object-fit:contain;border-radius:8px;background:#051224;padding:6px}
+  .qty{display:flex;align-items:center;gap:6px}
+  .muted{color:var(--muted)}
+  /* Modal */
+  .modal-backdrop{position:fixed;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.55),rgba(0,0,0,0.65));display:none;align-items:center;justify-content:center;z-index:80}
+  .modal-backdrop.open{display:flex}
+  .modal{background:linear-gradient(180deg,#071226,#041022);padding:18px;border-radius:12px;width:880px;max-width:96%;border:1px solid rgba(255,255,255,0.04)}
+  .modal .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  /* small UI */
+  .chip{padding:6px 8px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);font-weight:600}
+  .center{text-align:center}
+  .link{color:var(--accent);text-decoration:underline;cursor:pointer}
+  .note{font-size:13px;color:var(--muted)}
+  /* cart page (when #cart) */
+  #cart-page{display:none;margin-top:18px}
+  #cart-page.open{display:block}
+  table{width:100%;border-collapse:collapse}
+  th,td{padding:10px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.03)}
+  .total-row{font-weight:800}
+  .empty{padding:28px;border:1px dashed rgba(255,255,255,0.04);text-align:center;border-radius:8px;color:var(--muted)}
+  .pay-methods{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+  .pay-card{padding:10px;border-radius:8px;background:rgba(255,255,255,0.02);min-width:120px;text-align:center}
+  .footer-links{display:flex;gap:12px;justify-content:center;margin-top:18px}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">TS</div>
+        <div>
+          <div class="site-title">TechStore</div>
+          <div class="small">Gadgets • Peripherals • Accessories</div>
+        </div>
+      </div>
+
+      <nav>
+        <div class="small muted" id="location">Hosted on GitHub Pages</div>
+        <button class="btn" id="btn-products">Products</button>
+        <button class="btn" id="btn-cart-top">
+          Cart <span class="cart-count" id="cart-count">0</span>
+        </button>
+        <a class="btn primary" href="#" id="btn-checkout-quick">Checkout</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-left">
+        <h1>Professional Tech Store — ready for GitHub Pages</h1>
+        <p class="small">Fast, responsive & easy to customize. Add your products below (JS). Cart stores locally. Checkout via Formspree or email fallback.</p>
+
+        <div class="filters">
+          <div class="search" style="flex:1;min-width:240px">
+            <input id="search" placeholder="Search products (type name or feature)..." />
+            <button class="btn" id="search-clear">Clear</button>
+          </div>
+          <select class="btn" id="filter-cat">
+            <option value="">All categories</option>
+            <option>Laptops</option>
+            <option>Peripherals</option>
+            <option>Accessories</option>
+            <option>Components</option>
+          </select>
+          <div class="chip">Free hosting: GitHub Pages</div>
+        </div>
+
+        <div id="products-grid" class="grid" aria-live="polite">
+          <!-- Products rendered by JS -->
+        </div>
+      </div>
+
+      <aside class="hero-right" style="position:relative">
+        <div class="card" style="padding:18px">
+          <h3 style="margin:0 0 8px 0">Cart Summary</h3>
+          <div id="mini-cart" class="muted small">No items yet — click "Add to cart".</div>
+          <div style="margin-top:12px;display:flex;gap:8px">
+            <button class="btn" id="view-cart">View Cart</button>
+            <button class="btn primary" id="checkout-now">Checkout</button>
+          </div>
+
+          <hr style="border:none;height:1px;background:rgba(255,255,255,0.02);margin:12px 0">
+          <div>
+            <div class="small muted">Accepted payments</div>
+            <div class="pay-methods">
+              <div class="pay-card">PayPal</div>
+              <div class="pay-card">bKash</div>
+              <div class="pay-card">Nagad</div>
+              <div class="pay-card">Cash on delivery</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="height:16px"></div>
+
+        <div class="card">
+          <h4 style="margin:0 0 8px 0">Why TechStore?</h4>
+          <ul class="small muted">
+            <li>Lightweight single-file template — easy to host and modify</li>
+            <li>LocalStorage cart for offline-like persistence</li>
+            <li>Replace product images with your hosted files in the `products` array</li>
+          </ul>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Cart page -->
+    <section id="cart-page">
+      <h2>Shopping Cart</h2>
+      <div id="cart-contents"></div>
+    </section>
+
+    <footer>
+      <div class="small muted">Built for GitHub Pages • Customize product list in the JS section below</div>
+      <div class="footer-links">
+        <a class="link" href="#" id="clear-storage">Clear local storage</a>
+        <a class="link" href="#" id="about-link">About</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Drawer cart -->
+  <div class="drawer" id="drawer">
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <h3 style="margin:0">Your Cart</h3>
+      <button class="btn" id="close-drawer">Close</button>
+    </div>
+    <div id="drawer-items" style="margin-top:10px;max-height:420px;overflow:auto"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px">
+      <div class="small muted">Subtotal</div>
+      <div id="drawer-sub" style="font-weight:800">৳0</div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:12px">
+      <button class="btn" id="drawer-view">View cart</button>
+      <button class="btn primary" id="drawer-checkout">Checkout</button>
+    </div>
+  </div>
+
+  <!-- Modal quick view -->
+  <div class="modal-backdrop" id="modal">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <h3 id="modal-title">Product</h3>
+        <button class="btn" id="modal-close">Close</button>
+      </div>
+      <div style="margin-top:12px" class="grid-2">
+        <div id="modal-img" style="display:flex;align-items:center;justify-content:center;background:#071226;border-radius:8px;padding:12px">
+          <img src="" alt="" style="max-width:100%;max-height:360px;object-fit:contain" id="modal-img-img">
+        </div>
+        <div>
+          <p id="modal-desc" class="muted"></p>
+          <div style="margin-top:12px">
+            <div style="font-weight:800;font-size:20px" id="modal-price">৳0</div>
+            <div class="small muted" id="modal-cat">Category</div>
+          </div>
+          <div style="margin-top:12px;display:flex;gap:8px;align-items:center">
+            <input id="modal-qty" type="number" value="1" min="1" style="width:86px;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit">
+            <button class="btn primary" id="modal-add">Add to cart</button>
+          </div>
+          <div style="margin-top:16px" class="note">Shipping & taxes calculated at checkout. Replace payment links with your preferred providers.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+/*
+  TechStore single-file e-commerce template
+  - Edit product list below (images can be hosted in the repo or external URLs).
+  - For real checkout integrate Formspree (add your endpoint in variable FORMSPREE_ENDPOINT).
+  - If FORMSPREE_ENDPOINT is empty, an email fallback using mailto: will appear.
+*/
+
+const FORMSPREE_ENDPOINT = ""; // <-- OPTIONAL: If you have Formspree, paste https://formspree.io/f/{your-id} here.
+
+// ---------- Product Data (edit this) ----------
+const products = [
+  {
+    id: 'p1',
+    name: 'ProBook X14 — Ultralight Laptop',
+    price: 69900,
+    img: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=1b0b7f4f6f0f0d1b2d768b4b3e6f4fef',
+    category: 'Laptops',
+    short: '14" ultralight, 16GB RAM, 512GB NVMe SSD'
+  },
+  {
+    id: 'p2',
+    name: 'AeroMouse Wireless',
+    price: 2499,
+    img: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=cb0b37b86c5f0e3ad9a5e6f1b1a2b3c9',
+    category: 'Peripherals',
+    short: 'Ergonomic wireless mouse with RGB'
+  },
+  {
+    id: 'p3',
+    name: 'HyperSound Bluetooth Speaker',
+    price: 3599,
+    img: 'https://images.unsplash.com/photo-1585386959984-a415522f3f9d?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=71f4c6b86d6b1b7d3d2dffb2a8a7c3e0',
+    category: 'Accessories',
+    short: 'Portable speaker with deep bass'
+  },
+  {
+    id: 'p4',
+    name: 'UltraCable USB-C 3.2 (2m)',
+    price: 499,
+    img: 'https://images.unsplash.com/photo-1581091012184-7b2f9e89f6a5?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=7b6c1b3c1efb1f1f8b3a1c2b9c8d6e4f',
+    category: 'Accessories',
+    short: 'Fast charging & data transfer'
+  },
+  {
+    id: 'p5',
+    name: 'GamerX Mechanical Keyboard',
+    price: 5999,
+    img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=6b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e',
+    category: 'Peripherals',
+    short: 'Hot-swap, RGB, tactile switches'
+  },
+  {
+    id: 'p6',
+    name: 'NVMe Pro 1TB SSD',
+    price: 8999,
+    img: 'https://images.unsplash.com/photo-1587202372775-80dffd1a5f2f?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=9b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e',
+    category: 'Components',
+    short: 'PCIe 3.0 NVMe SSD — fast boot & load'
+  }
+];
+// ---------- End product data ----------
+
+// Helper currency formatting (Bangladeshi Taka symbol used here — change if you want)
+function formatCurrency(n){ return '৳' + Number(n).toLocaleString('en-US'); }
+
+// Render products
+const grid = document.getElementById('products-grid');
+
+function renderProducts(list){
+  grid.innerHTML = '';
+  if(list.length === 0){
+    grid.innerHTML = '<div class="empty" style="grid-column:1/-1">No products found</div>';
+    return;
+  }
+  list.forEach(p=>{
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.innerHTML = `
+      <div class="thumb"><img src="${p.img}" alt="${escapeHtml(p.name)}"></div>
+      <div>
+        <p class="prod-title">${escapeHtml(p.name)}</p>
+        <p class="prod-desc">${escapeHtml(p.short)}</p>
+      </div>
+      <div class="price-row">
+        <div>
+          <div class="price">${formatCurrency(p.price)}</div>
+          <div class="small muted">${p.category}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <button class="btn" data-action="view" data-id="${p.id}">View</button>
+          <button class="btn primary" data-action="add" data-id="${p.id}">Add to cart</button>
+        </div>
+      </div>
+    `;
+    grid.appendChild(div);
+  });
+}
+
+// Basic search & filter
+const searchInput = document.getElementById('search');
+const filterCat = document.getElementById('filter-cat');
+
+function filterAndRender(){
+  const q = searchInput.value.trim().toLowerCase();
+  const cat = filterCat.value;
+  const result = products.filter(p=>{
+    const text = (p.name + ' ' + p.short + ' ' + p.category).toLowerCase();
+    const matchesQ = !q || text.includes(q);
+    const matchesCat = !cat || p.category === cat;
+    return matchesQ && matchesCat;
+  });
+  renderProducts(result);
+}
+
+// Security: simple escape
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g, chr => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[chr]); }
+
+// ===== Cart Implementation =====
+const CART_KEY = 'techstore_cart_v1';
+function getCart(){
+  try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
+  catch(e){ return []; }
+}
+function saveCart(c){ localStorage.setItem(CART_KEY, JSON.stringify(c)); updateCartUI(); }
+function addToCart(productId, qty=1){
+  const p = products.find(x=>x.id===productId);
+  if(!p) return;
+  const cart = getCart();
+  const existing = cart.find(i=>i.id===productId);
+  if(existing) existing.qty = Math.min(999, existing.qty + qty);
+  else cart.push({id: productId, qty: qty});
+  saveCart(cart);
+  openDrawer();
+}
+function setQty(productId, qty){
+  let cart = getCart();
+  cart = cart.map(i => i.id===productId ? {...i, qty: Math.max(0, Number(qty))} : i).filter(i=>i.qty>0);
+  saveCart(cart);
+}
+function removeFromCart(productId){
+  const cart = getCart().filter(i=>i.id!==productId);
+  saveCart(cart);
+}
+function clearCart(){ localStorage.removeItem(CART_KEY); updateCartUI(); }
+
+// UI updates
+const cartCountEl = document.getElementById('cart-count');
+const miniCart = document.getElementById('mini-cart');
+const drawerItems = document.getElementById('drawer-items');
+const drawerSub = document.getElementById('drawer-sub');
+
+function updateCartUI(){
+  const cart = getCart();
+  let count = 0; let subtotal = 0;
+  cart.forEach(it=>{
+    const p = products.find(x=>x.id===it.id);
+    if(!p) return;
+    count += it.qty;
+    subtotal += p.price * it.qty;
+  });
+  cartCountEl.textContent = count;
+  miniCart.textContent = count ? `${count} item(s) • ${formatCurrency(subtotal)}` : 'No items yet — click "Add to cart".';
+  drawerSub.textContent = formatCurrency(subtotal);
+  // Drawer list
+  drawerItems.innerHTML = cart.length ? cart.map(it=>{
+    const p = products.find(x=>x.id===it.id);
+    return `
+      <div class="cart-item">
+        <img src="${p.img}" alt="${escapeHtml(p.name)}">
+        <div style="flex:1">
+          <div style="font-weight:700">${escapeHtml(p.name)}</div>
+          <div class="muted small">${formatCurrency(p.price)} • Qty: ${it.qty}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+          <div class="qty">
+            <button class="btn" data-action="qty-minus" data-id="${it.id}">-</button>
+            <div style="padding:6px 10px;border-radius:8px;background:rgba(255,255,255,0.02)">${it.qty}</div>
+            <button class="btn" data-action="qty-plus" data-id="${it.id}">+</button>
+          </div>
+          <button class="btn" data-action="remove" data-id="${it.id}">Remove</button>
+        </div>
+      </div>
+    `;
+  }).join('') : '<div class="empty">Your cart is empty.</div>';
+  renderCartPage();
+}
+
+// Drawer open/close
+const drawer = document.getElementById('drawer');
+function openDrawer(){ drawer.classList.add('open'); }
+function closeDrawer(){ drawer.classList.remove('open'); }
+
+// Quick render for full cart page
+function renderCartPage(){
+  const container = document.getElementById('cart-contents');
+  const cart = getCart();
+  if(cart.length===0){
+    container.innerHTML = `<div class="empty">Your cart is empty. Browse <a class="link" href="#" id="continue-shopping">products</a>.</div>`;
+    document.getElementById('cart-page').classList.remove('open');
+    return;
+  }
+  let rows = cart.map(it=>{
+    const p = products.find(x=>x.id===it.id);
+    return `
+      <tr>
+        <td style="width:100px"><img src="${p.img}" style="max-width:100px;border-radius:8px"></td>
+        <td>
+          <div style="font-weight:700">${escapeHtml(p.name)}</div>
+          <div class="small muted">${escapeHtml(p.short)}</div>
+        </td>
+        <td>${formatCurrency(p.price)}</td>
+        <td>
+          <div style="display:flex;align-items:center;gap:8px">
+            <button class="btn" data-action="qty-minus" data-id="${it.id}">-</button>
+            <input type="number" min="1" value="${it.qty}" data-id="${it.id}" class="cart-qty-input" style="width:72px;padding:6px;border-radius:8px;background:transparent;color:inherit;border:1px solid rgba(255,255,255,0.04)">
+            <button class="btn" data-action="qty-plus" data-id="${it.id}">+</button>
+          </div>
+        </td>
+        <td>${formatCurrency(p.price * it.qty)}</td>
+        <td><button class="btn" data-action="remove" data-id="${it.id}">Remove</button></td>
+      </tr>
+    `;
+  }).join('');
+  const subtotal = cart.reduce((s,it)=> s + (products.find(p=>p.id===it.id).price * it.qty), 0);
+  container.innerHTML = `
+    <table>
+      <thead><tr><th>Product</th><th></th><th>Unit</th><th>Qty</th><th>Line</th><th></th></tr></thead>
+      <tbody>${rows}</tbody>
+      <tfoot>
+        <tr><td colspan="4" class="muted">Subtotal</td><td class="total-row">${formatCurrency(subtotal)}</td><td></td></tr>
+      </tfoot>
+    </table>
+    <div style="display:flex;gap:8px;margin-top:12px">
+      <button class="btn" id="continue-shopping-2">Continue shopping</button>
+      <button class="btn primary" id="proceed-checkout">Proceed to checkout</button>
+      <button class="btn" id="clear-cart-btn">Clear cart</button>
+    </div>
+  `;
+  document.getElementById('cart-page').classList.add('open');
+}
+
+// Event delegation for product grid (add/view)
+grid.addEventListener('click', e=>{
+  const btn = e.target.closest('button');
+  if(!btn) return;
+  const action = btn.dataset.action;
+  const id = btn.dataset.id;
+  if(action === 'add') addToCart(id, 1);
+  if(action === 'view') openModalFor(id);
+});
+
+// Drawer interactions
+drawer.addEventListener('click', e=>{
+  const btn = e.target.closest('button');
+  if(!btn) return;
+  const action = btn.dataset.action;
+  const id = btn.dataset.id;
+  if(action === 'qty-plus') setQty(id, getItemQty(id) + 1);
+  if(action === 'qty-minus') setQty(id, Math.max(0, getItemQty(id) - 1));
+  if(action === 'remove') removeFromCart(id);
+});
+
+function getItemQty(id){
+  const c = getCart().find(i=>i.id===id);
+  return c ? c.qty : 0;
+}
+
+// Delegation for cart page
+document.addEventListener('click', e=>{
+  const btn = e.target.closest('button');
+  if(btn){
+    const action = btn.dataset.action;
+    const id = btn.dataset.id;
+    if(action === 'qty-plus'){ setQty(id, getItemQty(id) + 1); }
+    if(action === 'qty-minus'){ setQty(id, Math.max(0, getItemQty(id) - 1)); }
+    if(action === 'remove'){ removeFromCart(id); }
+  }
+});
+
+// Also handle inputs in cart
+document.addEventListener('change', e=>{
+  if(e.target.classList.contains('cart-qty-input')){
+    const id = e.target.dataset.id;
+    const val = Number(e.target.value) || 1;
+    setQty(id, Math.max(1, val));
+  }
+});
+
+// Modal quick view
+const modal = document.getElementById('modal');
+const modalTitle = document.getElementById('modal-title');
+const modalImg = document.getElementById('modal-img-img');
+const modalDesc = document.getElementById('modal-desc');
+const modalPrice = document.getElementById('modal-price');
+const modalCat = document.getElementById('modal-cat');
+const modalQty = document.getElementById('modal-qty');
+let modalProductId = null;
+
+function openModalFor(id){
+  const p = products.find(x=>x.id===id);
+  if(!p) return;
+  modalProductId = id;
+  modalTitle.textContent = p.name;
+  modalImg.src = p.img;
+  modalImg.alt = p.name;
+  modalDesc.textContent = p.short;
+  modalPrice.textContent = formatCurrency(p.price);
+  modalCat.textContent = p.category;
+  modalQty.value = 1;
+  modal.classList.add('open');
+}
+document.getElementById('modal-close').addEventListener('click', ()=> modal.classList.remove('open'));
+document.getElementById('modal-add').addEventListener('click', ()=>{
+  const q = Math.max(1, Number(modalQty.value || 1));
+  addToCart(modalProductId, q);
+  modal.classList.remove('open');
+});
+
+// Basic controls
+document.getElementById('btn-cart-top').addEventListener('click', ()=> openDrawer());
+document.getElementById('close-drawer').addEventListener('click', ()=> closeDrawer());
+document.getElementById('drawer-view').addEventListener('click', ()=> {closeDrawer(); document.getElementById('btn-products').click(); showCartPage();});
+document.getElementById('drawer-checkout').addEventListener('click', ()=> {closeDrawer(); startCheckout();});
+document.getElementById('view-cart').addEventListener('click', ()=> {document.getElementById('btn-products').click(); showCartPage();});
+document.getElementById('btn-products').addEventListener('click', ()=> {document.getElementById('cart-page').classList.remove('open'); window.scrollTo({top:0,behavior:'smooth'})});
+document.getElementById('btn-checkout-quick').addEventListener('click', ()=> startCheckout());
+document.getElementById('checkout-now').addEventListener('click', ()=> startCheckout());
+document.getElementById('search-clear').addEventListener('click', ()=> {searchInput.value=''; filterAndRender();});
+document.getElementById('filter-cat').addEventListener('change', filterAndRender);
+searchInput.addEventListener('input', debounce(filterAndRender, 220));
+document.getElementById('clear-storage').addEventListener('click', ()=> { if(confirm('Clear saved cart?')) {clearCart();} });
+
+// cart page actions (buttons added dynamically)
+document.addEventListener('click', function(e){
+  if(e.target && e.target.id === 'continue-shopping-2'){
+    document.getElementById('cart-page').classList.remove('open');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  if(e.target && e.target.id === 'proceed-checkout') startCheckout();
+  if(e.target && e.target.id === 'clear-cart-btn') { if(confirm('Clear cart?')) clearCart(); }
+});
+
+// Checkout flow: show a lightweight form (modal-like) or redirect to formspree
+function startCheckout(){
+  const cart = getCart();
+  if(!cart.length){ alert('Your cart is empty. Add items first.'); return; }
+  // Build order summary
+  const lines = cart.map(it=>{
+    const p = products.find(x=>x.id===it.id);
+    return `${p.name} — ${it.qty} × ${formatCurrency(p.price)} = ${formatCurrency(p.price * it.qty)}`;
+  });
+  const subtotal = cart.reduce((s,it)=> s + (products.find(p=>p.id===it.id).price * it.qty), 0);
+  if(FORMSPREE_ENDPOINT && FORMSPREE_ENDPOINT.trim() !== ""){
+    // Create a temporary form and submit to Formspree
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = FORMSPREE_ENDPOINT;
+    form.style.display = 'none';
+    const fields = {
+      name: '',
+      email: '',
+      phone: '',
+      address: '',
+      items: lines.join('\n'),
+      subtotal: subtotal
+    };
+    for(const k in fields){
+      const inp = document.createElement('input');
+      inp.type = 'hidden'; inp.name = k; inp.value = fields[k];
+      form.appendChild(inp);
+    }
+    document.body.appendChild(form);
+    // Put up a prompt to collect name & email before submission
+    const userName = prompt('Enter your full name (for order):') || '';
+    const userEmail = prompt('Enter your email (for order confirmation):') || '';
+    form.querySelector('input[name=name]').value = userName;
+    form.querySelector('input[name=email]').value = userEmail;
+    form.submit();
+    alert('Order sent — check your email for confirmation (Formspree).');
+    clearCart();
+  } else {
+    // mailto fallback: open user's email client with prefilled subject and body
+    const subject = encodeURIComponent('New Order from TechStore');
+    const body = encodeURIComponent('New order:%0A%0A' + lines.join('%0A') + `%0A%0ASubtotal: ${formatCurrency(subtotal)}%0A%0APlease reply with payment instructions and shipping cost.%0A%0AName:%0AEmail:%0APhone:%0AAddress:%0A`);
+    window.location.href = `mailto:you@yourdomain.com?subject=${subject}&body=${body}`;
+    alert('No Formspree endpoint configured. Opening your email client to send the order. Replace "you@yourdomain.com" in the code with your email to receive orders directly.');
+    // don't clear cart automatically
+  }
+}
+
+// Utilities
+function escapeQS(s){ return encodeURIComponent(s); }
+function debounce(fn, ms){ let t; return (...a)=>{ clearTimeout(t); t = setTimeout(()=>fn(...a), ms); }; }
+
+// Small helper to show cart page
+function showCartPage(){ document.getElementById('cart-page').classList.add('open'); window.scrollTo({top:document.getElementById('cart-page').offsetTop - 20, behavior:'smooth'}); }
+
+// Initial render
+filterAndRender();
+updateCartUI();
+
+// small UX: clicking outside drawer closes it
+document.addEventListener('click', (e)=>{
+  if(!drawer.contains(e.target) && !e.target.closest('.cart-btn') && !e.target.closest('#btn-cart-top')) {
+    // drawer stays open until closed intentionally — but we can close when clicking outside
+    // closeDrawer();
+  }
+});
+
+// keyboard: Esc closes modal & drawer
+document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape'){ modal.classList.remove('open'); closeDrawer(); } });
+
+// Accessibility: trap focus in modal could be added later
+
+// small helpful links actions
+document.getElementById('about-link').addEventListener('click', (e)=>{ e.preventDefault(); alert('TechStore template — edit the product list in the JS section of index.html. Host images in the repo or link external images.'); });
+document.getElementById('continue-shopping')?.addEventListener('click', (e)=>{ e.preventDefault(); document.getElementById('cart-page').classList.remove('open'); });
+
+// show product details when clicking image (delegation)
+grid.addEventListener('click', (e)=>{
+  const img = e.target.closest('img');
+  if(!img) return;
+  const card = img.closest('.card');
+  if(!card) return;
+  const btn = card.querySelector('button[data-action="view"]');
+  if(btn) btn.click();
+});
+
+// Load images progressively (basic)
+document.querySelectorAll('.thumb img, #modal-img-img').forEach(img=>{
+  img.addEventListener('error', ()=> { img.style.opacity=0.5; img.alt='Image not found'; });
+});
+
+// show small location message
+document.getElementById('location').textContent = 'Hosting: GitHub Pages • Static, fast & secure';
+
+// allow clearing storage from code snippet (dev)
+document.getElementById('clear-storage').addEventListener('click', (e)=>{ e.preventDefault(); if(confirm('Clear all saved local data?')) { localStorage.clear(); updateCartUI(); alert('Local storage cleared'); } });
+
+</script>
+</body>
+</html>
+</p>
 </div>
 </body>
 </html>
